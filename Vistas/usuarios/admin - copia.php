@@ -5,6 +5,10 @@
 	<title>Listado de usuarios</title>
 	<link rel="stylesheet" href="assets/css/main.css" />
 
+	<style type="text/css">	
+		 body{background: black;}
+	</style>
+
 	<link rel="stylesheet" href="https://unpkg.com/rmodal/dist/rmodal.css" type="text/css" />
     <script type="text/javascript" src="https://unpkg.com/rmodal/dist/rmodal.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -61,17 +65,20 @@
 <body>
 	 <br><br><br>
    
+         <section id="cta" class="wrapper">
             <h3><b><center> Busqueda De Usuarios</center></b></h3>
             <div class="inner" >
-
+<br>
 <form action="index.php?c=usuarios&a=view" method="post"> <br>
 <input type="text" name="nhab"  placeholder=""> <br>
 <button style="center;" type="submit">consultar</button> 
 	
 </form> 
 			
-
-            <button href="#" id="showModal"  type="submit">registrar</button>
+            <br>
+            <div class="row">
+            <div class="col-lg-12">
+            <button href="#" id="showModal" class="btn btn-primary" type="submit">registrar</button>
             </div>
         	</div>
             
@@ -140,9 +147,9 @@
     </div>
       
 </form> 
-  <h3><b><center> Listado De Usuarios</b></center></h3> 
+  <h3><b><center> Listado De Usuarios</center></b></h3> 
 
-	<table align="center">            
+	<table style="float: right;">            
 		<tbody>
             <tr>
                 <th style="text-align:center">Id</th>
@@ -161,16 +168,11 @@
 			<td ><?= $usuario->tipo; ?></td>
 			<td>
             <button style="height:20px; line-height:2px; margin-left;" onclick="editar(<?= $usuario->id_usuarios; ?>)">Editar</button>
-      				&nbsp;&nbsp;&nbsp;<button style="height:20px; line-height:2px; margin-right:;"  onclick="eliminar(<?= $usuario->id_usuarios; ?>)">Eliminar</button></td>
+      				&nbsp;&nbsp;&nbsp;<button style="height:20px; line-height:2px; margin-right:;"  onclick="eliminar(<?= $usuario->id_usuario; ?>)">Eliminar</button></td>
                 </td>
                 </tr>
 			<?php } ?>
             
-		</tbody>
-
-	</table>
-
-		
             <script type="text/javascript" >
             function eliminar(id){
                 swal({
@@ -187,8 +189,8 @@
                     }, 1000);
                     }
                   });
-            }
-             function editar(id){
+			}
+			 function editar(id){
                 swal({
                     title: "Esta seguro?",
                     text: "Quiere editar!",
@@ -203,8 +205,27 @@
                     }, 1000);
                     }
                   });
-            }
+			}
   </script>
+		</tbody>
+	</table>
+
+		
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <br />
+           
+         
+            </div>
+        </div>
+       
+    </div>
+                    </div>
+</section>
 
 </body>
 </html>

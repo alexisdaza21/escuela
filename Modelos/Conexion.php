@@ -4,7 +4,7 @@
 
 		public function __construct(){
 			 $server = "localhost";
-			 $db = "motel";
+			 $db = "escuela";
 			 $user = "root";
 			 $password = "";
 

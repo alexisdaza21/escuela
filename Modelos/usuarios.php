@@ -4,28 +4,28 @@ require_once("Conexion.php");
 
 class Usuarios extends Conexion{ 
 
-	public $id_usuario;
+	public $id_usuarios;
 	public $nombres;
 	public $apellidos;
-	public $perfil;
 	public $documento;
-	public $contrasena;
+	public $pass;
+	public $tipo;
 	
 
 	public function __construct(){
 	
 		parent::__construct();
 	}
-	public function save($nom,$ape,$per,$doc,$con){
+	public function save($nom,$ape,$doc,$pass,$tip){
 
 		$this->nombres = $nom;
 		$this->apellidos = $ape;
-		$this->perfil = $per;
 		$this->documento = $doc;
-		$this->contrasena = $con;
+		$this->pass = $pass;
+		$this->tipo = $tip;
 
 		$conexion = $this->getConexion();
-		$stm = $conexion-> prepare("INSERT INTO usuarios VALUES (:id_usuario,:nombres,:apellidos,:perfil,:documento,:contrasena)");
+		$stm = $conexion-> prepare("INSERT INTO usuarios VALUES (:id_usuarios,:nombres,:apellidos,:documento,:pass,:tipo)");
 		try{
 			 $stm->execute((array) $this);
 			 return true;
@@ -36,21 +36,21 @@ class Usuarios extends Conexion{
 	public function update(){
 
 		$conexion = $this->getConexion();
-		$stm = $conexion-> prepare("UPDATE usuarios SET nombres = :nombres, apellidos = :apellidos, perfil = :perfil, documento = :documento, contrasena = :contrasena WHERE id_usuario = :id");
+		$stm = $conexion-> prepare("UPDATE usuarios SET nombres = :nombres, apellidos = :apellidos,documento = :documento, pass = :pass, tipo = :tipo WHERE id_usuarios = :id");
 		 
 		 $stm->bindParam(":nombres",$this->nombres);
 		 $stm->bindParam(":apellidos",$this->apellidos);
-		 $stm->bindParam(":perfil",$this->perfil);
 		 $stm->bindParam(":documento",$this->documento);
-		 $stm->bindParam(":contrasena",$this->contrasena);
+		 $stm->bindParam(":pass",$this->pass);		 
+		 $stm->bindParam(":tipo",$this->tipo);
 		
-		 $stm->bindParam(":id",$this->id_usuario);
+		 $stm->bindParam(":id",$this->id_usuarios);
 
 		 $stm->execute();
 	}
 	public function findByPk($id){
 		$conexion = $this->getConexion();
-		$stm = $conexion->prepare("SELECT * FROM Usuarios WHERE id_usuario = :id");
+		$stm = $conexion->prepare("SELECT * FROM usuarios WHERE id_usuarios = :id");
 		$stm ->setFetchMode(PDO::FETCH_INTO,$this);
 
 		$stm->bindParam(":id",$id);
@@ -60,7 +60,7 @@ class Usuarios extends Conexion{
 	}
 	public function findbydocument($doc){
 		$conexion = $this->getConexion();
-		$stm = $conexion->prepare("SELECT * FROM Usuarios WHERE documento = :doc");
+		$stm = $conexion->prepare("SELECT * FROM usuarios WHERE documento = :doc");
 		$stm->setFetchMode(PDO::FETCH_INTO,$this);
 		$stm->bindParam(":doc",$doc);
 		$stm->execute();
@@ -68,7 +68,7 @@ class Usuarios extends Conexion{
 	}
 	public function delete($id){
 		$conexion = $this->getConexion();
-		$stm =$conexion->prepare("DELETE FROM Usuarios WHERE id_usuario = :id");
+		$stm =$conexion->prepare("DELETE FROM usuarios WHERE id_usuarios = :id");
 
 		$stm->bindParam(":id",$id);
 		$stm->execute();
@@ -77,7 +77,7 @@ class Usuarios extends Conexion{
 
 public function view($id) {
             $conexion =$this->getConexion();
-			$stm = $conexion->prepare("SELECT * FROM Usuarios WHERE nombres = :data or apellidos = :data or documento = :data or perfil = :data");
+			$stm = $conexion->prepare("SELECT * FROM Usuarios WHERE nombres = :data or apellidos = :data or documento = :data or pass = :data or tipo = :data");
             $stm->bindParam(":data", $id);
 			
 			$stm->setFetchMode(PDO::FETCH_CLASS,'Usuarios');
@@ -92,8 +92,8 @@ public function view($id) {
                 }
 		public function admin(){
 		$conexion = $this->getConexion();
-		$stm =$conexion->prepare("SELECT * FROM Usuarios");
-		$stm->setFetchMode(PDO::FETCH_CLASS,'usuarios');
+		$stm =$conexion->prepare("SELECT * FROM usuarios");
+		$stm->setFetchMode(PDO::FETCH_CLASS,'Usuarios');
 		$usuario = array();	
 		$stm->execute();
 
