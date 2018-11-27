@@ -1,210 +1,183 @@
+  <?php 
+    if (isset($_GET["error"]) ) {
+     
+         echo "<script>
+                alert('Datos incorrectos');
+               
+         </script>";
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	
-	<title>Listado de usuarios</title>
-	<link rel="stylesheet" href="assets/css/main.css" />
-
-	<link rel="stylesheet" href="https://unpkg.com/rmodal/dist/rmodal.css" type="text/css" />
-    <script type="text/javascript" src="https://unpkg.com/rmodal/dist/rmodal.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    
-    <style type="text/css">
-      .modal .modal-dialog {
-        width: 400px;
-      }
-    </style>
-
-    <script type="text/javascript">
-        window.onload = function() {
-            var modal = new RModal(document.getElementById('modal'), {
-                //content: 'Abracadabra'
-                beforeOpen: function(next) {
-                    console.log('beforeOpen');
-                    next();
-                }
-                , afterOpen: function() {
-                    console.log('opened');
-                }
-
-                , beforeClose: function(next) {
-                    console.log('beforeClose');
-                    next();
-                }
-                , afterClose: function() {
-                    console.log('closed');
-                }
-                // , bodyClass: 'modal-open'
-                // , dialogClass: 'modal-dialog'
-                // , dialogOpenClass: 'animated fadeIn'
-                // , dialogCloseClass: 'animated fadeOut'
-
-                // , focus: true
-                // , focusElements: ['input.form-control', 'textarea', 'button.btn-primary']
-
-                // , escapeClose: true
-            });
-
-            document.addEventListener('keydown', function(ev) {
-                modal.keydown(ev);
-            }, false);
-
-            document.getElementById('showModal').addEventListener("click", function(ev) {
-                ev.preventDefault();
-                modal.open();
-            }, false);
-
-            window.modal = modal;
-        }
-    </script>
+    <?php require("header.php"); ?>
+    <title></title>
 </head>
 <body>
-	 <br><br><br>
-   
-            <h3><b><center> Busqueda De Usuarios</center></b></h3>
-            <div class="inner" >
+     <div class="swiper-container hero-slider">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" data-date="2018/05/01" style="background: url('images/308.jpg') no-repeat">
+                <div class="hero-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col flex flex-column justify-content-center">
+                                <div class="entry-header">
+                                    <div class="countdown flex align-items-center">
+                                        <div class="countdown-holder flex align-items-baseline">
+                                            <span class=""></span>
+                                            <label></label>
+                                        </div><!-- .countdown-holder -->
 
-<form action="index.php?c=usuarios&a=view" method="post"> <br>
-<input type="text" name="nhab"  placeholder=""> <br>
-<button style="center;" type="submit">consultar</button> 
-	
-</form> 
-			
+                                        <div class="countdown-holder flex align-items-baseline">
+                                            <span class=""></span>
+                                            <label></label>
+                                        </div><!-- .countdown-holder -->
 
-            <button href="#" id="showModal"  type="submit">registrar</button>
-            </div>
-        	</div>
-            
-    <div id="modal" class="modal">
-        <div class="modal-dialog animated">
-            <div class="modal-content">
-                <form class="form-horizontal" action="index.php?c=usuarios&a=create" method="post">
-                
-                    
-                    </div>
-                          <?php
-							if (isset($_GET["error"])){
-							echo "<script> 
-							alert ('Esta persona ya existe'
-							);
-							</script>";
-						}
-					?>
+                                        <div class="countdown-holder flex align-items-baseline">
+                                            <span class=""></span>
+                                            <label></label>
+                                        </div><!-- .countdown-holder -->
 
+                                        <div class="countdown-holder flex align-items-baseline">
+                                            <span class=""></span>
+                                            <label></label>
+                                        </div><!-- .countdown-holder -->
+                                    </div><!-- .countdown -->
 
+                                 <br><br><br><br><br>
+                                </div><!--- .entry-header -->
 
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="dummyText" class="control-label col-xs-4">Nombres</label>
-                            <div class="input-group col-xs-7">
-                            <input type="text" name="Usuarios[nombres]" id="dummyText" class="form-control" value="" required/>
-                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="dummyText" class="control-label col-xs-4">Apellidos</label>
-                            <div class="input-group col-xs-7">
-                            <input type="text" name="Usuarios[apellidos]" id="dummyText" class="form-control" value="" required/>
-                             </div>
-                        </div>
-                        <div class="form-group">
-                                <label for="dummyText" class="control-label col-xs-4">Tipo:</label><br>
-                                <select name="Usuarios[perfil]" required>
-                                    <option value="">Seleccione</option>
-                                    <option value="Administrador">Administrador</option>
-                                    <option value="Vendedor">Vendedor</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="dummyText" class="control-label col-xs-4">Documento</label>
-                            <div class="input-group col-xs-7">
-                            <input type="text" name="Usuarios[documento]" id="dummyText" class="form-control" value="" required/>
-                              </div>
-                        </div>
-                            <div class="form-group">
-                            <label for="dummyText" class="control-label col-xs-4">Contraseña</label>
-                            <div class="input-group col-xs-7">
-                            <input type="password" name="Usuarios[pass]" id="dummyText" class="form-control" value="" required/>
-                            </div><br>
-                        </div><br>
-                        
-                        
-                    </div>
+                            <!--    <div class="entry-footer">
+                                    <a class="btn gradient-bg" href="#">Order here</a>
+                                </div> .entry-footer" -->
+                            </div><!-- .col -->
+                        </div><!-- .container -->
+                    </div><!-- .hero-content -->
+                </div><!-- .swiper-slide -->
+            </div><!-- .swiper-wrapper -->
 
-                    <div class="modal-footer">
-                        <button class="btn btn-default" type="button" onclick="modal.close();">Cancelar</button>
-                        <button  class="btn btn-primary" type="submit">Guardar</button>
-                    </div>
-                </form>
-            </div>
+            <div class="swiper-slide" data-date="2019/05/01" style="background: url('images/308.jpg') no-repeat">
+                <div class="hero-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col flex flex-column justify-content-center">
+                                <div class="entry-header">
+                                    <div class="countdown flex align-items-center">
+                                        <div class="countdown-holder flex align-items-baseline">
+                                            <span class="dday"></span>
+                                            <label>Days</label>
+                                        </div><!-- .countdown-holder -->
+
+                                        <div class="countdown-holder flex align-items-baseline">
+                                            <span class="dhour"></span>
+                                            <label>Hours</label>
+                                        </div><!-- .countdown-holder -->
+
+                                        <div class="countdown-holder flex align-items-baseline">
+                                            <span class="dmin"></span>
+                                            <label>Minutes</label>
+                                        </div><!-- .countdown-holder -->
+
+                                        <div class="countdown-holder flex align-items-baseline">
+                                            <span class="dsec"></span>
+                                            <label>Seconds</label>
+                                        </div><!-- .countdown-holder -->
+                                    </div><!-- .countdown -->
+
+                                    <h2 class="entry-title">2 We have the best events. <br>Get your tiket now!</h2>
+                                </div><!--- .entry-header -->
+
+                                <div class="entry-footer">
+                                    <a class="btn gradient-bg" href="#">Order here</a>
+                                </div><!-- .entry-footer" -->
+                            </div><!-- .col -->
+                        </div><!-- .container -->
+                    </div><!-- .hero-content -->
+                </div><!-- .swiper-slide -->
+            </div><!-- .swiper-wrapper -->
+
+            <div class="swiper-slide" data-date="2020/05/01" style="background: url('images/308.jpg') no-repeat">
+                <div class="hero-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col flex flex-column justify-content-center">
+                                <div class="entry-header">
+                                    <div class="countdown flex align-items-center">
+                                        <div class="countdown-holder flex align-items-baseline">
+                                            <span class="dday"></span>
+                                            <label>Days</label>
+                                        </div><!-- .countdown-holder -->
+
+                                        <div class="countdown-holder flex align-items-baseline">
+                                            <span class="dhour"></span>
+                                            <label>Hours</label>
+                                        </div><!-- .countdown-holder -->
+
+                                        <div class="countdown-holder flex align-items-baseline">
+                                            <span class="dmin"></span>
+                                            <label>Minutes</label>
+                                        </div><!-- .countdown-holder -->
+
+                                        <div class="countdown-holder flex align-items-baseline">
+                                            <span class="dsec"></span>
+                                            <label>Seconds</label>
+                                        </div><!-- .countdown-holder -->
+                                    </div><!-- .countdown -->
+
+                                    <h2 class="entry-title">3 We have the best events. <br>Get your tiket now!</h2>
+                                </div><!--- .entry-header -->
+
+                                <div class="entry-footer">
+                                    <a class="btn gradient-bg" href="#">Order here</a>
+                                </div><!-- .entry-footer" -->
+                            </div><!-- .col -->
+                        </div><!-- .container -->
+                    </div><!-- .hero-content -->
+                </div><!-- .swiper-slide -->
+            </div><!-- .swiper-wrapper -->
         </div>
-    </div>
-      
-</form> 
-  <h3><b><center> Listado De Usuarios</center></b></h3> 
 
-	<table style="float: right;">            
-		<tbody>
-            <tr>
-                <th style="text-align:center">Id</th>
-                <th style="text-align:center">Nombres</th>
-                <th style="text-align:center">Apellidos</th>
-                <th style="text-align:center">perfil</th>
-                <th style="text-align:center">Documento</th>
-                <th style="text-align:center" colspan="2">Acciones</th>
-            </tr>
-            <?php foreach($usuario as $usuario) {?>
-		<tr>
-			<td scope="row"><?= $usuario->id_usuarios; ?></td>
-			<td ><?= $usuario->nombres; ?></td>
-			<td ><?= $usuario->apellidos; ?></td>
-			<td ><?= $usuario->documento; ?></td>
-			<td ><?= $usuario->tipo; ?></td>
-			<td>
-            <button style="height:20px; line-height:2px; margin-left;" onclick="editar(<?= $usuario->id_usuarios; ?>)">Editar</button>
-      				&nbsp;&nbsp;&nbsp;<button style="height:20px; line-height:2px; margin-right:;"  onclick="eliminar(<?= $usuario->id_usuario; ?>)">Eliminar</button></td>
-                </td>
-                </tr>
-			<?php } ?>
-            
-            <script type="text/javascript" >
-            function eliminar(id){
-                swal({
-                    title: "Esta seguro?",
-                    text: "Este usuario se eliminara!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true
-                  }).then((willDelete) => {
-                    if (willDelete) {
-                        swal("Muy bien!", "Se ha eliminado","success");
-                        setTimeout(function(){
-                        location.href="index.php?c=usuarios&a=delete&id="+id;
-                    }, 1000);
-                    }
-                  });
-			}
-			 function editar(id){
-                swal({
-                    title: "Esta seguro?",
-                    text: "Quiere editar!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true
-                  }).then((willDelete) => {
-                    if (willDelete) {
-                        swal("Muy bien!", "Espera un momento","success");
-                        setTimeout(function(){
-                        location.href="index.php?c=usuarios&a=update&id="+id;
-                    }, 1000);
-                    }
-                  });
-			}
-  </script>
-		</tbody>
-	</table>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
 
-		
+        <!-- Add Arrows -->
+        <div class="swiper-button-next flex justify-content-center align-items-center">
+            <span><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1171 960q0 13-10 23l-466 466q-10 10-23 10t-23-10l-50-50q-10-10-10-23t10-23l393-393-393-393q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l466 466q10 10 10 23z"/></svg></span>
+        </div>
 
+        <div class="swiper-button-prev flex justify-content-center align-items-center">
+            <span><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1203 544q0 13-10 23l-393 393 393 393q10 10 10 23t-10 23l-50 50q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l466-466q10-10 23-10t23 10l50 50q10 10 10 23z"/></svg></span>
+        </div>
+    </div><!-- .swiper-container -->
+</header><!-- .site-header -->
 
+<?php require("footer.php"); ?>
 </body>
 </html>
+
+<div class="post">
+
+   <div id="login-box" class="login-popup">
+        
+        <a href="" class="close"><img src="close_pop.png" class="btn_close" title="cerrar"  alt="Close" /></a>
+        
+          <form method="post" class="signin" action="index.php?c=home&a=login" name="login">
+                <fieldset class="textbox">
+                <label class="username">
+                <span><font style="font-size: 17px;">
+                Documento</span></font>
+                <input id="username" required="" name="login[documento]" name="documento"  type="text" autocomplete="on" placeholder="Documento"
+                 style="font-weight: bold;">
+                </label>
+                
+                <label class="password">
+                <span ><font style="font-size: 17px;">
+                 Contrase&ntilde;a</span></font>
+                <input type="password" required="" id="password" name="login[pass]" name="pass"  type="password" placeholder="Contrase&ntilde;a" style="font-weight: bold;">
+                </label>
+                
+                <input style=" font-size: 100%; width: 120px; height: 40px; margin-left: 20%; " class="submit button" type="submit" value="Ingresar"/>
+                    
+                </fieldset>
+  
+          </form>

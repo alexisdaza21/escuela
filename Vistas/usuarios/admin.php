@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
+
 	<title>Listado de usuarios</title>
-	<link rel="stylesheet" href="assets/css/main.css" />
+
 
 	<link rel="stylesheet" href="https://unpkg.com/rmodal/dist/rmodal.css" type="text/css" />
     <script type="text/javascript" src="https://unpkg.com/rmodal/dist/rmodal.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    
+
     <style type="text/css">
       .modal .modal-dialog {
         width: 400px;
@@ -60,21 +60,12 @@
 </head>
 <body>
 	 <br><br><br>
-   
-            <h3><b><center> Busqueda De Usuarios</center></b></h3>
-            <div class="inner" >
 
-<form action="index.php?c=usuarios&a=view" method="post"> <br>
-<input type="text" name="nhab"  placeholder=""> <br>
-<button style="center;" type="submit">consultar</button> 
-	
 </form> 
 			
 
             <button href="#" id="showModal"  type="submit">registrar</button>
-            </div>
-        	</div>
-            
+         
     <div id="modal" class="modal">
         <div class="modal-dialog animated">
             <div class="modal-content">
@@ -108,10 +99,10 @@
                         </div>
                         <div class="form-group">
                                 <label for="dummyText" class="control-label col-xs-4">Tipo:</label><br>
-                                <select name="Usuarios[perfil]" required>
+                                <select name="Usuarios[tipo]" required>
                                     <option value="">Seleccione</option>
                                     <option value="Administrador">Administrador</option>
-                                    <option value="Vendedor">Vendedor</option>
+                                    <option value="Empleado">Empleado</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -142,31 +133,36 @@
 </form> 
   <h3><b><center> Listado De Usuarios</b></center></h3> 
 
-	<table align="center">            
-		<tbody>
+ 
+         <input id="searchTerm" type="text" onkeyup="doSearch()"  
+         placeholder="Escriba para buscar..." style="float: right;" />
+<br><br>
+    <p>
+        <table id="datos" align="center" width="80%">
             <tr>
                 <th style="text-align:center">Id</th>
                 <th style="text-align:center">Nombres</th>
                 <th style="text-align:center">Apellidos</th>
-                <th style="text-align:center">perfil</th>
                 <th style="text-align:center">Documento</th>
+                <th style="text-align:center">tipo</th>
                 <th style="text-align:center" colspan="2">Acciones</th>
             </tr>
             <?php foreach($usuario as $usuario) {?>
 		<tr>
-			<td scope="row"><?= $usuario->id_usuarios; ?></td>
-			<td ><?= $usuario->nombres; ?></td>
-			<td ><?= $usuario->apellidos; ?></td>
-			<td ><?= $usuario->documento; ?></td>
-			<td ><?= $usuario->tipo; ?></td>
-			<td>
-            <button style="height:20px; line-height:2px; margin-left;" onclick="editar(<?= $usuario->id_usuarios; ?>)">Editar</button>
-      				&nbsp;&nbsp;&nbsp;<button style="height:20px; line-height:2px; margin-right:;"  onclick="eliminar(<?= $usuario->id_usuarios; ?>)">Eliminar</button></td>
+			<td align="center" scope="row"><?= $usuario->id_usuarios; ?></td>
+			<td align="center" ><?= $usuario->nombres; ?></td>
+			<td align="center" ><?= $usuario->apellidos; ?></td>
+			<td align="center" ><?= $usuario->documento; ?></td>
+			<td align="center" ><?= $usuario->tipo; ?></td>
+			<td align="center">
+            <button style="height:20px; line-height:2px; margin-left; " onclick="editar('<?= $usuario->id_usuarios; ?>','<?= $usuario->nombres." ".$usuario->apellidos; ?>')">Editar</button>
+      				
+                    <button style="height:20px; line-height:2px; margin-right:; margin-left: 10px;"  onclick="eliminar(<?= $usuario->id_usuarios ?>)">Eliminar</button>
+
                 </td>
                 </tr>
 			<?php } ?>
             
-		</tbody>
 
 	</table>
 
@@ -176,7 +172,7 @@
                 swal({
                     title: "Esta seguro?",
                     text: "Este usuario se eliminara!",
-                    icon: "warning",
+                    icon: "error",
                     buttons: true,
                     dangerMode: true
                   }).then((willDelete) => {
@@ -188,22 +184,58 @@
                     }
                   });
             }
-             function editar(id){
+             function editar(id,nombres){
                 swal({
-                    title: "Esta seguro?",
-                    text: "Quiere editar!",
+                    title: "Quieres editar al usuario",
+                    text: nombres,
                     icon: "warning",
                     buttons: true,
                     dangerMode: true
                   }).then((willDelete) => {
                     if (willDelete) {
-                        swal("Muy bien!", "Espera un momento","success");
-                        setTimeout(function(){
+                        //swal("Muy bien!", "Espera un momento","success");
+                        //setTimeout(function(){
                         location.href="index.php?c=usuarios&a=update&id="+id;
-                    }, 1000);
+                        //}, 1000);
                     }
                   });
             }
+  </script>
+
+  <script type="text/javascript">
+        function doSearch()
+        {
+            var tableReg = document.getElementById('datos');
+            var searchText = document.getElementById('searchTerm').value.toLowerCase();
+            var cellsOfRow="";
+            var found=false;
+            var compareWith="";
+ 
+            // Recorremos todas las filas con contenido de la tabla
+            for (var i = 1; i < tableReg.rows.length; i++)
+            {
+                cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+                found = false;
+                // Recorremos todas las celdas
+                for (var j = 0; j < cellsOfRow.length && !found; j++)
+                {
+                    compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+                    // Buscamos el texto en el contenido de la celda
+                    if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1))
+                    {
+                        found = true;
+                    }
+                }
+                if(found)
+                {
+                    tableReg.rows[i].style.display = '';
+                } else {
+                    // si no ha encontrado ninguna coincidencia, esconde la
+                    // fila de la tabla
+                    tableReg.rows[i].style.display = 'none';
+                }
+            }
+        }
   </script>
 
 </body>
