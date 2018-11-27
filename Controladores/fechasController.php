@@ -1,6 +1,7 @@
 <?php 
 //clase
 require_once("Modelos/fechas.php");
+require_once("Modelos/equipos.php");
 
 class fechasController{
 	public static function main ($action){
@@ -26,10 +27,12 @@ class fechasController{
 	}
 
 	private function admin (){
-		
-		$fech = new Fechas();
-		$fechas = $fech->admin();
-		
+		// listado fechas
+			$fech = new Fechas();
+			$fechas = $fech->admin();
+		//listado de equipos	
+			$equi = new Equipos();
+			$equipos = $equi->admin();
 		require"vistas/fechas/admin.php";
 	}
 	private function create(){
@@ -52,7 +55,7 @@ class fechasController{
 					header("Location: index.php?c=fechas&a=admin&error=true");
 				}
 			}else
-				require "vistas/fechas/create.php";
+				require "vistas/fechas/admin.php";
 		}
 		private function update(){
 		$fechas = new Fechas();

@@ -1,8 +1,29 @@
-<!DOCTYPE html>
 <html>
 <head>
 
 	<title>Listado de usuarios</title>
+  <style>
+  .custom-combobox {
+    position: relative;
+    display: inline-block;
+  }
+  .custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+  }
+  .custom-combobox-input {
+    margin: 0;
+    padding: 5px 10px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+ <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
 	<link rel="stylesheet" href="https://unpkg.com/rmodal/dist/rmodal.css" type="text/css" />
@@ -69,7 +90,7 @@
     <div id="modal" class="modal">
         <div class="modal-dialog animated">
             <div class="modal-content">
-                <form class="form-horizontal" action="index.php?c=usuarios&a=create" method="post">
+                <form class="form-horizontal" action="index.php?c=fechas&a=create" method="post">
                 
                     
                     </div>
@@ -86,36 +107,59 @@
 
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="dummyText" class="control-label col-xs-4">Nombres</label>
+                            <label for="dummyText" class="control-label col-xs-4">fecha</label>
                             <div class="input-group col-xs-7">
-                            <input type="text" name="Usuarios[nombres]" id="dummyText" class="form-control" value="" required/>
+                            <input type="date" name="Fechas[fecha]" id="dummyText" class="form-control" value="" required/>
+                        </div>
+                            <!-- fechas[fecha]-->
+                        </div>
+                        <div class="form-group">
+                            <label for="dummyText" class="control-label col-xs-4">Hora</label>
+                            <div class="input-group col-xs-7">
+                            <input type="time" name="Fechas[hora]" id="dummyText" class="form-control" value="" required/>
                              </div>
                         </div>
                         <div class="form-group">
-                            <label for="dummyText" class="control-label col-xs-4">Apellidos</label>
-                            <div class="input-group col-xs-7">
-                            <input type="text" name="Usuarios[apellidos]" id="dummyText" class="form-control" value="" required/>
-                             </div>
+
                         </div>
-                        <div class="form-group">
-                                <label for="dummyText" class="control-label col-xs-4">Tipo:</label><br>
-                                <select name="Usuarios[tipo]" required>
-                                    <option value="">Seleccione</option>
-                                    <option value="Administrador">Administrador</option>
-                                    <option value="Empleado">Empleado</option>
+                    
+                        <div class="ui-widget">
+                          <label>Seleccione el equipo visitante </label>
+                          <select id="combobox" name="Fechas[local]">
+                             <option value="">Seleccion local...</option>
+                            <?php foreach($equipos as $equipos1) {?>
+                           
+                            <option value="<?= $equipos1->id_equipos; ?>"><?= $equipos1->equipo; ?></option>  
+                                <?php } ?>
+                          </select>
+                        </div>
+                        
+
+
+
+
+                          <div class="ui-widget">
+                            <label>Seleccione el equipo visitante </label>
+                            <select id="combobox2"  name="Fechas[visitante]">
+                               <option value="">Seleccion visitante...</option>
+                              <?php foreach($equipos as $equipos2) {?>
+                             
+                              <option value="<?= $equipos2->id_equipos; ?>"><?= $equipos2->equipo; ?></option>  
+                                  <?php } ?>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="dummyText" class="control-label col-xs-4">Documento</label>
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="dummyText" class="control-label col-xs-4">goles local</label>
                             <div class="input-group col-xs-7">
-                            <input type="text" name="Usuarios[documento]" id="dummyText" class="form-control" value="" required/>
-                              </div>
-                        </div>
-                            <div class="form-group">
-                            <label for="dummyText" class="control-label col-xs-4">Contraseña</label>
+                            <input type="text" name="Fechas[goles_local]" id="dummyText" class="form-control" value="" required/>
+                        </div>                        <div class="form-group">
+                            <label for="dummyText" class="control-label col-xs-4">goles visitante</label>
                             <div class="input-group col-xs-7">
-                            <input type="password" name="Usuarios[pass]" id="dummyText" class="form-control" value="" required/>
-                            </div><br>
+                            <input type="text" name="Fechas[goles_visitante]" id="dummyText" class="form-control" value="" required/>
+                        </div>
+                      
+                        <br>
                         </div><br>
                         
                         
@@ -141,19 +185,23 @@
         <table id="datos" align="center" width="80%">
             <tr>
                 <th style="text-align:center">Id</th>
-                <th style="text-align:center">Nombres</th>
-                <th style="text-align:center">Apellidos</th>
-                <th style="text-align:center">Documento</th>
-                <th style="text-align:center">tipo</th>
+                <th style="text-align:center">fecha</th>
+                <th style="text-align:center">hora</th>
+                <th style="text-align:center">local</th>
+                <th style="text-align:center">visitante</th>
+                <th style="text-align:center">goles local</th>
+                <th style="text-align:center">goles visitante</th>
                 <th style="text-align:center" colspan="2">Acciones</th>
             </tr>
             <?php foreach($fechas as $fechas) {?>
 		<tr>
 			<td align="center" scope="row"><?= $fechas->id_fechas; ?></td>
-			<td align="center" ><?= $fechas->nombres; ?></td>
-			<td align="center" ><?= $fechas->apellidos; ?></td>
-			<td align="center" ><?= $fechas->documento; ?></td>
-			<td align="center" ><?= $fechas->tipo; ?></td>
+			<td align="center" ><?= $fechas->fecha; ?></td>
+			<td align="center" ><?= $fechas->hora; ?></td>
+			<td align="center" ><?= $fechas->local; ?></td>
+			<td align="center" ><?= $fechas->visitante; ?></td>
+      <td align="center" ><?= $fechas->goles_local; ?></td>
+      <td align="center" ><?= $fechas->goles_visitante; ?></td>
 			<td align="center">
             <button style="height:20px; line-height:2px; margin-left; " onclick="editar(<?= $fechas->id_fechas; ?>)">Editar</button>
       				
@@ -187,7 +235,7 @@
              function editar(id,nombres){
                 swal({
                     title: "Quieres editar al usuario",
-                    text: "<?= $usuario->nombres; ?>",
+                    text: "",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true
@@ -238,5 +286,157 @@
         }
   </script>
 
+  <script>
+  $( function() {
+    $.widget( "custom.combobox", {
+      _create: function() {
+        this.wrapper = $( "<span>" )
+          .addClass( "custom-combobox" )
+          .insertAfter( this.element );
+ 
+        this.element.hide();
+        this._createAutocomplete();
+        this._createShowAllButton();
+      },
+ 
+      _createAutocomplete: function() {
+        var selected = this.element.children( ":selected" ),
+          value = selected.val() ? selected.text() : "";
+ 
+        this.input = $( "<input>" )
+          .appendTo( this.wrapper )
+          .val( value )
+          .attr( "title", "" )
+          .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+          .autocomplete({
+            delay: 0,
+            minLength: 0,
+            source: $.proxy( this, "_source" )
+          })
+          .tooltip({
+            classes: {
+              "ui-tooltip": "ui-state-highlight"
+            }
+          });
+ 
+        this._on( this.input, {
+          autocompleteselect: function( event, ui ) {
+            ui.item.option.selected = true;
+            this._trigger( "select", event, {
+              item: ui.item.option
+            });
+          },
+ 
+          autocompletechange: "_removeIfInvalid"
+        });
+      },
+ 
+      _createShowAllButton: function() {
+        var input = this.input,
+          wasOpen = false;
+ 
+        $( "<a>" )
+          .attr( "tabIndex", -1 )
+          .attr( "title", "Ver todos los equipos" )
+          .tooltip()
+          .appendTo( this.wrapper )
+          .button({
+            icons: {
+              primary: "ui-icon-triangle-1-s"
+            },
+            text: false
+          })
+          .removeClass( "ui-corner-all" )
+          .addClass( "custom-combobox-toggle ui-corner-right" )
+          .on( "mousedown", function() {
+            wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+          })
+          .on( "click", function() {
+            input.trigger( "focus" );
+ 
+            // Close if already visible
+            if ( wasOpen ) {
+              return;
+            }
+ 
+            // Pass empty string as value to search for, displaying all results
+            input.autocomplete( "search", "" );
+          });
+      },
+ 
+      _source: function( request, response ) {
+        var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+        response( this.element.children( "option" ).map(function() {
+          var text = $( this ).text();
+          if ( this.value && ( !request.term || matcher.test(text) ) )
+            return {
+              label: text,
+              value: text,
+              option: this
+            };
+        }) );
+      },
+ 
+      _removeIfInvalid: function( event, ui ) {
+ 
+        // Selected an item, nothing to do
+        if ( ui.item ) {
+          return;
+        }
+ 
+        // Search for a match (case-insensitive)
+        var value = this.input.val(),
+          valueLowerCase = value.toLowerCase(),
+          valid = false;
+        this.element.children( "option" ).each(function() {
+          if ( $( this ).text().toLowerCase() === valueLowerCase ) {
+            this.selected = valid = true;
+            return false;
+          }
+        });
+ 
+        // Found a match, nothing to do
+        if ( valid ) {
+          return;
+        }
+ 
+        // Remove invalid value
+        this.input
+          .val( "" )
+          .attr( "title", value + " didn't match any item" )
+          .tooltip( "open" );
+        this.element.val( "" );
+        this._delay(function() {
+          this.input.tooltip( "close" ).attr( "title", "" );
+        }, 2500 );
+        this.input.autocomplete( "instance" ).term = "";
+      },
+ 
+      _destroy: function() {
+        this.wrapper.remove();
+        this.element.show();
+      }
+    });
+ 
+    $( "#combobox" ).combobox();
+    $( "#toggle" ).on( "click", function() {
+      $( "#combobox" ).toggle();
+    });
+    $( "#combobox2" ).combobox();
+    $( "#toggle2" ).on( "click", function() {
+      $( "#combobox2" ).toggle2();
+    });
+  } );
+  </script>
+
+
+
+
+
+
+ 
+  
+</body>
+</html>
 </body>
 </html>
